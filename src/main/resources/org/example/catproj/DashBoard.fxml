@@ -103,7 +103,7 @@
                                        </children></AnchorPane>
                                     <Label alignment="TOP_LEFT" layoutX="85.0" layoutY="53.0" prefHeight="151.0" prefWidth="258.0" text="To be the driving force behind a united and sustainable Small and Medium-sized Enterprises (SMEs) community, contributing to the realization of Sustainable Development Goal 11 (SDG 11) for inclusive and resilient communities." textFill="WHITE" wrapText="true">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font size="13.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="dashboard_totalusers" alignment="CENTER_RIGHT" layoutX="233.0" layoutY="14.0" text="VISION" textFill="WHITE">
@@ -126,7 +126,7 @@
                                     </Label>
                                     <Label alignment="TOP_LEFT" layoutX="84.0" layoutY="55.0" prefHeight="151.0" prefWidth="258.0" text="Empowering SMEs through a streamlined event platform, we aim to simplify planning, enhance sustainability practices, and foster collaboration. Our mission is to connect SMEs, amplify their exposure, and collectively advance towards a more sustainable and prosperous future." textFill="WHITE" wrapText="true">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font size="13.0" />
                                        </font>
                                     </Label>
                                  </children>
