@@ -1,5 +1,30 @@
 # CAT201_Project
-# Showcase
+
+## Project Structure Overview (Maven, JavaFx)
+```
+.
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   ├── org
+│   │   │   │   ├── example
+│   │   │   │   |   ├── catproj
+│   │   │   │   |   |   ├── <controllers>
+│   │   │   │   |   |   ├── main.java (Entrypoint)
+│   │   ├── resources
+│   │   │   ├── org
+│   │   │   │   ├── example
+|   │   │   │   │   ├── catproj
+|   |   │   │   │   │   ├── <views>
+│   │   |   ├── image
+│   │   |   ├── jar
+│   │   |   ├── lib
+│   │   |   ├── css
+│   │   |   ├── dat
+|   |   │   │   ├── database
+└── README.md
+```
+## Showcase
 
 ### Sign In
 ![image](https://github.com/MunGian/CAT201_Project/assets/121543642/0624db25-8b80-4671-8cac-40dcf3f2c671)
@@ -31,3 +56,12 @@
 ### Event Inserted Successfully
 ![image](https://github.com/MunGian/CAT201_Project/assets/121543642/34444444-5375-4b43-b983-da590693ea9a)
 
+## Credit
+[Soo Mun Gian]https://github.com/MunGian
+[Marcus Tan Tung Chean]https://github.com/Sn0wman8
+[Ang Qi Yuen]
+[Chau Hong Feng]
+
+
+## Bugs and Issues
+If you find any bugs or issues, please report it to the [issue tracker]https://github.com/MunGian/CAT201_Project/issues
