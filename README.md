@@ -57,10 +57,10 @@
 ![image](https://github.com/MunGian/CAT201_Project/assets/121543642/34444444-5375-4b43-b983-da590693ea9a)
 
 ## Credit
-[Soo Mun Gian]https://github.com/MunGian
-[Marcus Tan Tung Chean]https://github.com/Sn0wman8
-[Ang Qi Yuen]
-[Chau Hong Feng]
+- [Soo Mun Gian](https://github.com/MunGian)
+- [Marcus Tan Tung Chean](https://github.com/Sn0wman8)
+- [Ang Qi Yuen]()
+- [Chau Hong Feng]()
 
 
 ## Bugs and Issues
