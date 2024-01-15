@@ -1,5 +1,7 @@
 # CAT201 Project Group 33
 
+## Requirement
+JAR - [FontAwesomeFX 8.2](https://jar-download.com/artifacts/de.jensd/fontawesomefx/8.2/source-code)
 ## Project Structure Overview (Maven, JavaFx)
 ```
 .
