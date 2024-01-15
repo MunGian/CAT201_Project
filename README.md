@@ -1,7 +1,9 @@
 # CAT201 Project Group 33
 
 ## Requirement
-JAR - [FontAwesomeFX 8.2](https://jar-download.com/artifacts/de.jensd/fontawesomefx/8.2/source-code)
+- JAR - [FontAwesomeFX 8.2 (Manually Add it into the Library of Scene Builder)](https://jar-download.com/artifacts/de.jensd/fontawesomefx/8.2/source-code)
+
+- Include all JARs in lib and jar folders (under resources folder) into library.
 ## Project Structure Overview (Maven, JavaFx)
 ```
 .
