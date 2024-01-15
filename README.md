@@ -50,4 +50,4 @@
 
 
 ## Bugs and Issues
-If you find any bugs or issues, please report it to the [issue tracker]https://github.com/MunGian/CAT201_Project/issues
+If you find any bugs or issues, please report it to the [issue tracker](https://github.com/MunGian/CAT201_Project/issues)
