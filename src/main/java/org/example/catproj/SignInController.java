@@ -172,13 +172,19 @@ public class SignInController{
 
                         signin_button.getScene().getWindow().hide();
 
-                        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("DashBoard.fxml")));
-
-                        Stage stage = new Stage();
-                        Scene scene = new Scene(root);
-
-                        stage.setScene(scene);
-                        stage.show();
+                        if ("admin".equals(signin_username.getText())) {
+                            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("DashBoardAdmin.fxml")));
+                            Stage stage = new Stage();
+                            Scene scene = new Scene(root);
+                            stage.setScene(scene);
+                            stage.show();
+                        } else {
+                            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("DashBoardUser.fxml")));
+                            Stage stage = new Stage();
+                            Scene scene = new Scene(root);
+                            stage.setScene(scene);
+                            stage.show();
+                        }
 
                     } else {
                         alert = new Alert(Alert.AlertType.ERROR);
