@@ -1024,6 +1024,7 @@ public class DashBoardController {
     }
 
     public void initialize(){
+        dashboard_btn.setStyle("-fx-background-color: #2355b0");
         displayUsername();
         showAddEventList();
         showJoinEventList();
