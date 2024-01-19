@@ -26,7 +26,7 @@
 │   │   |   ├── lib
 │   │   |   ├── css
 │   │   |   ├── dat
-|   |   │   │   ├── database
+|   |   │   │   ├── project.db (Database)
 └── README.md
 ```
 ## Showcase
