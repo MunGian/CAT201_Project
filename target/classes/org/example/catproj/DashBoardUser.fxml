@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -29,14 +30,13 @@
          <left>
             <AnchorPane prefHeight="500.0" prefWidth="180.0" styleClass="nav-form" stylesheets="@../../../css/designDashboard.css" BorderPane.alignment="CENTER">
                <children>
-                  <FontAwesomeIcon fill="WHITE" glyphName="USER" layoutX="56.0" layoutY="97.0" size="7em" />
                   <Label alignment="CENTER" layoutX="64.0" layoutY="109.0" text="Welcome" textFill="WHITE" />
                   <Label fx:id="username" alignment="CENTER" layoutX="9.0" layoutY="127.0" prefHeight="30.0" prefWidth="160.0" text="Admin" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Button fx:id="dashboard_btn" layoutX="10.0" layoutY="180.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="160.0" styleClass="nav-btn" stylesheets="@../../../css/designDashboard.css" text=" Home">
+                  <Button fx:id="dashboard_btn" layoutX="10.0" layoutY="180.0" mnemonicParsing="false" onAction="#switchUserForm" prefHeight="40.0" prefWidth="160.0" styleClass="nav-btn" stylesheets="@../../../css/designDashboard.css" text=" Home">
                      <graphic>
                         <FontAwesomeIcon fill="WHITE" glyphName="HOME" size="1.7em" />
                      </graphic>
@@ -44,7 +44,7 @@
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="addEvent_btn" layoutX="10.0" layoutY="225.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="160.0" styleClass="nav-btn" stylesheets="@../../../css/designDashboard.css" text=" Event">
+                  <Button fx:id="addEvent_btn" layoutX="10.0" layoutY="225.0" mnemonicParsing="false" onAction="#switchUserForm" prefHeight="40.0" prefWidth="160.0" styleClass="nav-btn" stylesheets="@../../../css/designDashboard.css" text=" Event">
                      <graphic>
                         <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="1.7em" />
                      </graphic>
@@ -52,7 +52,7 @@
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="joinEvent_btn" layoutX="10.0" layoutY="270.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="160.0" style="visibility: false;" styleClass="nav-btn" stylesheets="@../../../css/designDashboard.css" text=" Join Event">
+                  <Button fx:id="joinEvent_btn" layoutX="10.0" layoutY="270.0" mnemonicParsing="false" onAction="#switchUserForm" prefHeight="40.0" prefWidth="160.0" styleClass="nav-btn" stylesheets="@../../../css/designDashboard.css" text=" Join Event">
                      <graphic>
                         <FontAwesomeIcon fill="WHITE" glyphName="SERVER" size="1.7em" />
                      </graphic>
@@ -60,7 +60,7 @@
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="participants_btn" layoutX="10.0" layoutY="315.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="160.0" style="visibility: false;" styleClass="nav-btn" stylesheets="@../../../css/designDashboard.css" text=" Participants">
+                  <Button fx:id="participants_btn" layoutX="10.0" layoutY="315.0" mnemonicParsing="false" onAction="#switchUserForm" prefHeight="40.0" prefWidth="160.0" style="visibility: false;" styleClass="nav-btn" stylesheets="@../../../css/designDashboard.css" text=" Participants">
                      <graphic>
                         <FontAwesomeIcon fill="WHITE" glyphName="USERS" size="1.7em" />
                      </graphic>
@@ -74,6 +74,11 @@
                      </graphic>
                   </Button>
                   <Label layoutX="75.0" layoutY="460.0" text="Sign Out" textFill="WHITE" />
+                  <ImageView fitHeight="91.0" fitWidth="94.0" layoutX="43.0" layoutY="14.0">
+                     <image>
+                        <Image url="@../../../assets/icon.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
          </left>
@@ -186,12 +191,12 @@
                                     <TextField fx:id="joinEvent_name" layoutX="86.0" layoutY="28.0" prefHeight="31.0" prefWidth="150.0" promptText="Name" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
                                     <TextField fx:id="joinEvent_date" layoutX="86.0" layoutY="68.0" prefHeight="31.0" prefWidth="150.0" promptText="Date" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
                                     <TextField fx:id="joinEvent_time" layoutX="86.0" layoutY="108.0" prefHeight="31.0" prefWidth="150.0" promptText="Time" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
-                                    <Button fx:id="joinEvent_select" layoutX="83.0" layoutY="153.0" mnemonicParsing="false" styleClass="insert_btn" stylesheets="@../../../css/designDashboard.css" text="Select Event" />
+                                    <Button fx:id="joinEvent_select" layoutX="83.0" layoutY="153.0" mnemonicParsing="false" onAction="#selectEvent" styleClass="insert_btn" stylesheets="@../../../css/designDashboard.css" text="Select Event" />
                                  </children>
                               </AnchorPane>
-                              <TableView fx:id="joinEvent_tableview" layoutX="250.0" prefHeight="175.0" prefWidth="501.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
+                              <TableView fx:id="joinEvent_tableview" layoutX="250.0" onMouseClicked="#selectAvailableEvent" prefHeight="175.0" prefWidth="501.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TableColumn fx:id="joinEvent_col_name" prefWidth="100.0" text="Movie Name" />
+                                  <TableColumn fx:id="joinEvent_col_name" prefWidth="100.0" text="Event Name" />
                                   <TableColumn fx:id="joinEvent_col_date" prefWidth="75.0" text="Date" />
                                     <TableColumn fx:id="joinEvent_col_time" prefWidth="75.0" text="Time" />
                                     <TableColumn fx:id="joinEvent_col_desc" prefWidth="249.59995727539064" text="Description" />
@@ -211,12 +216,11 @@
                                           <ImageView fx:id="joinEvent_imageview" fitHeight="160.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </AnchorPane>
-                                    <Label fx:id="joinEvent_label" layoutX="93.0" layoutY="183.0" text="LABEL">
+                                    <Label fx:id="joinEvent_label" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="183.0" prefHeight="50.0" prefWidth="238.0" text="LABEL" textAlignment="CENTER" wrapText="true">
                                        <font>
-                                          <Font name="System Bold" size="22.0" />
+                                          <Font name="System Bold" size="15.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="joinEvent_text" layoutX="115.0" layoutY="215.0" text="text" />
                                  </children></AnchorPane>
                               <Label layoutX="430.0" layoutY="8.0" text="Register Event">
                                  <font>
@@ -247,7 +251,7 @@
                                  </font>
                               </Label>
                               <TextField fx:id="joinEvent_phone" layoutX="442.0" layoutY="182.0" prefHeight="31.0" prefWidth="200.0" promptText="Phone Number" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
-                              <Button fx:id="joinEvent_register" layoutX="655.0" layoutY="183.0" mnemonicParsing="false" styleClass="update_btn" stylesheets="@../../../css/designDashboard.css" text="Register" />
+                              <Button fx:id="joinEvent_register" layoutX="655.0" layoutY="183.0" mnemonicParsing="false" onAction="#registerParticipant" styleClass="update_btn" stylesheets="@../../../css/designDashboard.css" text="Register" />
                            </children>
                         </AnchorPane>
                      </children>

@@ -1,5 +1,6 @@
 package org.example.catproj;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -29,15 +30,13 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.sql.*;
-import java.util.ResourceBundle;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashBoardController {
 
     @FXML
     private Button addEvent_btn;
-
-    @FXML
-    private Button addEvent_clear;
 
     @FXML
     private TableColumn<eventData, String> addEvent_col_date;
@@ -55,9 +54,6 @@ public class DashBoardController {
     private TextField addEvent_date;
 
     @FXML
-    private Button addEvent_delete;
-
-    @FXML
     private TextField addEvent_desc;
 
     @FXML
@@ -65,12 +61,6 @@ public class DashBoardController {
 
     @FXML
     private ImageView addEvent_imageview;
-
-    @FXML
-    private Button addEvent_import;
-
-    @FXML
-    private Button addEvent_insert;
 
     @FXML
     private TextField addEvent_name;
@@ -85,19 +75,19 @@ public class DashBoardController {
     private TextField addEvent_time;
 
     @FXML
-    private Button addEvent_update;
+    private TableView<eventData> checkEvent_tableview;
+    @FXML
+    private TableColumn<eventData, String> checkEvent_col_name;
+    @FXML
+    private TableColumn<eventData, String> checkEvent_col_time;
+    @FXML
+    private TableColumn<eventData, String> checkEvent_col_date;
 
     @FXML
     private Button dashboard_btn;
 
     @FXML
     private AnchorPane dashboard_form;
-
-    @FXML
-    private Label dashboard_totalevents;
-
-    @FXML
-    private Label dashboard_totalusers;
 
     @FXML
     private Button joinEvent_btn;
@@ -142,16 +132,7 @@ public class DashBoardController {
     private TextField joinEvent_phone;
 
     @FXML
-    private Button joinEvent_register;
-
-    @FXML
-    private Button joinEvent_select;
-
-    @FXML
-    private TableView<?> joinEvent_tableview;
-
-    @FXML
-    private Label joinEvent_text;
+    private TableView<eventData> joinEvent_tableview;
 
     @FXML
     private TextField joinEvent_time;
@@ -160,82 +141,25 @@ public class DashBoardController {
     private Button participants_btn;
 
     @FXML
-    private Button participants_check;
+    private TableView<participantData> participants_tableview;
 
     @FXML
-    private TableColumn<?, ?> participants_col_;
+    private TableColumn<participantData, String> displayParticipant_col_fname;
 
     @FXML
-    private TableColumn<?, ?> participants_col_email;
+    private TableColumn<participantData, String> displayParticipant_col_lname;
 
     @FXML
-    private TableColumn<?, ?> participants_col_lastname;
+    private TableColumn<participantData, String> displayParticipant_col_email;
 
     @FXML
-    private TableColumn<?, ?> participants_col_phone;
-
-    @FXML
-    private TextField participants_date;
+    private TableColumn<participantData, String> displayParticipant_col_phone;
 
     @FXML
     private AnchorPane participants_form;
 
     @FXML
-    private TextField participants_name;
-
-    @FXML
-    private TextField participants_search;
-
-    @FXML
-    private TableView<?> participants_tableview;
-
-    @FXML
-    private TextField participants_time;
-
-    @FXML
     private Button signout;
-
-    @FXML
-    private Button updateEvent_btn;
-
-    @FXML
-    private TableColumn<?, ?> updateEvent_col_date;
-
-    @FXML
-    private TableColumn<?, ?> updateEvent_col_desc;
-
-    @FXML
-    private TableColumn<?, ?> updateEvent_col_name;
-
-    @FXML
-    private TableColumn<?, ?> updateEvent_col_time;
-
-    @FXML
-    private ComboBox<?> updateEvent_current;
-
-    @FXML
-    private Button updateEvent_delete;
-
-    @FXML
-    private AnchorPane updateEvent_form;
-
-    @FXML
-    private ImageView updateEvent_imageview;
-
-    @FXML
-    private Label updateEvent_label;
-
-    @FXML
-    private TextField updateEvent_search;
-
-    @FXML
-    private TableView<?> updateEvent_tableview;
-
-    @FXML
-    private Label updateEvent_text;
-
-    @FXML
-    private Button updateEvent_update;
 
     @FXML
     private Label username;
@@ -562,6 +486,30 @@ public class DashBoardController {
             return cell;
         };
     }
+    private Callback<TableColumn<participantData, String>, TableCell<participantData, String>> getParticipantWrapTextCellFactory() {
+        return col -> {
+            TableCell<participantData, String> cell = new TableCell<>() {
+                private final Text text = new Text();
+
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item == null || empty) {
+                        setGraphic(null);
+                    } else {
+                        text.setText(item);
+                        text.wrappingWidthProperty().bind(col.widthProperty());
+                        setGraphic(text);
+                    }
+                }
+            };
+
+            cell.setStyle("-fx-alignment: CENTER-LEFT;");
+
+            return cell;
+        };
+    }
 
     public void selectAddEventList(){
         eventData eveD = addEvent_tableview.getSelectionModel().getSelectedItem();
@@ -624,53 +572,352 @@ public class DashBoardController {
             e.printStackTrace();
         }
     }
-    public void switchForm(ActionEvent event){
+    public void switchadminForm(ActionEvent event){
         if(event.getSource()==dashboard_btn){
             dashboard_form.setVisible(true);
             addEvent_form.setVisible(false);
 //            joinEvent_form.setVisible(false);
-//            participants_form.setVisible(false);
+            participants_form.setVisible(false);
 
-            dashboard_btn.setStyle("-fx-background-color: #ae2d3c");
+            dashboard_btn.setStyle("-fx-background-color: #2355b0");
             addEvent_btn.setStyle("-fx-background-color: transparent");
 //            joinEvent_btn.setStyle("-fx-background-color: transparent");
-//            participants_btn.setStyle("-fx-background-color: transparent");
+            participants_btn.setStyle("-fx-background-color: transparent");
         } else if(event.getSource()==addEvent_btn){
             dashboard_form.setVisible(false);
             addEvent_form.setVisible(true);
 //            joinEvent_form.setVisible(false);
+            participants_form.setVisible(false);
+
+            dashboard_btn.setStyle("-fx-background-color: transparent");
+            addEvent_btn.setStyle("-fx-background-color: #2355b0");
+//            joinEvent_btn.setStyle("-fx-background-color: transparent");
+            participants_btn.setStyle("-fx-background-color: transparent");
+//        }else if(event.getSource()==joinEvent_btn){
+//            dashboard_form.setVisible(false);
+//            addEvent_form.setVisible(false);
+//            joinEvent_form.setVisible(true);
+//            participants_form.setVisible(false);
+//
+//            dashboard_btn.setStyle("-fx-background-color: transparent");
+//            addEvent_btn.setStyle("-fx-background-color: transparent");
+//            joinEvent_btn.setStyle("-fx-background-color: #ae2d3c");
+            participants_btn.setStyle("-fx-background-color: transparent");
+        }else if(event.getSource()==participants_btn){
+            showCheckEventList();
+            dashboard_form.setVisible(false);
+            addEvent_form.setVisible(false);
+//            joinEvent_form.setVisible(false);
+            participants_form.setVisible(true);
+
+            dashboard_btn.setStyle("-fx-background-color: transparent");
+            addEvent_btn.setStyle("-fx-background-color: transparent");
+//            joinEvent_btn.setStyle("-fx-background-color: transparent");
+            participants_btn.setStyle("-fx-background-color: #2355b0");
+        }
+    }
+    public void switchUserForm(ActionEvent event){
+        if(event.getSource()==dashboard_btn){
+            dashboard_form.setVisible(true);
+            addEvent_form.setVisible(false);
+            joinEvent_form.setVisible(false);
+//            participants_form.setVisible(false);
+
+            dashboard_btn.setStyle("-fx-background-color: #2355b0");
+            addEvent_btn.setStyle("-fx-background-color: transparent");
+            joinEvent_btn.setStyle("-fx-background-color: transparent");
+//            participants_btn.setStyle("-fx-background-color: transparent");
+        } else if(event.getSource()==addEvent_btn){
+            dashboard_form.setVisible(false);
+            addEvent_form.setVisible(true);
+            joinEvent_form.setVisible(false);
 //            participants_form.setVisible(false);
 
             dashboard_btn.setStyle("-fx-background-color: transparent");
-            addEvent_btn.setStyle("-fx-background-color: #ae2d3c");
-//            joinEvent_btn.setStyle("-fx-background-color: transparent");
+            addEvent_btn.setStyle("-fx-background-color: #2355b0");
+            joinEvent_btn.setStyle("-fx-background-color: transparent");
 //            participants_btn.setStyle("-fx-background-color: transparent");
         }else if(event.getSource()==joinEvent_btn){
             dashboard_form.setVisible(false);
             addEvent_form.setVisible(false);
-//            joinEvent_form.setVisible(true);
+            joinEvent_form.setVisible(true);
 //            participants_form.setVisible(false);
 
             dashboard_btn.setStyle("-fx-background-color: transparent");
             addEvent_btn.setStyle("-fx-background-color: transparent");
-//            joinEvent_btn.setStyle("-fx-background-color: #ae2d3c");
+            joinEvent_btn.setStyle("-fx-background-color: #2355b0");
 //            participants_btn.setStyle("-fx-background-color: transparent");
         }else if(event.getSource()==participants_btn){
             dashboard_form.setVisible(false);
             addEvent_form.setVisible(false);
-//            joinEvent_form.setVisible(false);
+            joinEvent_form.setVisible(false);
 //            participants_form.setVisible(true);
 
             dashboard_btn.setStyle("-fx-background-color: transparent");
             addEvent_btn.setStyle("-fx-background-color: transparent");
-//            joinEvent_btn.setStyle("-fx-background-color: transparent");
+            joinEvent_btn.setStyle("-fx-background-color: transparent");
 //            participants_btn.setStyle("-fx-background-color: #ae2d3c");
         }
     }
 
+    private ObservableList<eventData> listJoinEvent;
+    public void showJoinEventList(){
+        listJoinEvent = addEventList();
+
+        joinEvent_col_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        joinEvent_col_name.setCellFactory(getWrapTextCellFactory());
+        joinEvent_col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        joinEvent_col_time.setCellValueFactory(new PropertyValueFactory<>("time"));
+        joinEvent_col_desc.setCellValueFactory(new PropertyValueFactory<>("desc"));
+        joinEvent_col_desc.setCellFactory(getWrapTextCellFactory());
+
+        joinEvent_tableview.setItems(listJoinEvent);
+    }
+
+    public void selectAvailableEvent() {
+
+        eventData eventD = joinEvent_tableview.getSelectionModel().getSelectedItem();
+        int num = joinEvent_tableview.getSelectionModel().getSelectedIndex();
+
+        if ((num-1) < -1){
+            return;
+        }
+
+        joinEvent_name.setText(eventD.getName());
+        joinEvent_date.setText(eventD.getDate());
+        joinEvent_time.setText(eventD.getTime());
+
+        getData.path = eventD.getImag();
+        getData.title = eventD.getName();
+    }
+    public void selectEvent() {
+
+        Alert alert;
+        if(joinEvent_name.getText().isEmpty() || joinEvent_time.getText().isEmpty() || joinEvent_date.getText().isEmpty()) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select the event first");
+            alert.showAndWait();
+        }else {
+            String imagePath = "file:" + getData.path;
+
+            image = new Image(imagePath, 120, 160, false, true);
+            joinEvent_imageview.setImage(image);
+
+            joinEvent_label.setText(getData.title);
+
+            joinEvent_name.setText("");
+            joinEvent_time.setText("");
+            joinEvent_date.setText("");
+        }
+    }
+    @FXML
+    private void registerParticipant(ActionEvent event) {
+        eventData selectedEvent = (eventData) joinEvent_tableview.getSelectionModel().getSelectedItem();
+
+        if (selectedEvent != null) {
+            String firstName = joinEvent_firstname.getText();
+            String lastName = joinEvent_lastname.getText();
+            String email = joinEvent_email.getText();
+            String phone = joinEvent_phone.getText();
+
+            // Validate user input
+            if (validateParticipantInput(firstName, lastName, email, phone)) {
+                storeParticipantInDatabase(selectedEvent, firstName, lastName, email, phone);
+                clearRegistrationForm();
+            } else {
+                showAlert("Error", "Invalid input", "Please fill in all fields.");
+            }
+        } else {
+            showAlert("Error", "Event not selected", "Please select an event before registering.");
+        }
+    }
+
+    private boolean validateParticipantInput(String firstName, String lastName, String email, String phone) {
+        return !firstName.isEmpty() && !lastName.isEmpty() && !email.isEmpty() && !phone.isEmpty();
+    }
+
+    private void storeParticipantInDatabase(eventData selectedEvent, String firstName, String lastName, String email, String phone) {
+        Connection connect = null;
+
+        try {
+            connect = database.connectDB();
+
+            String sql = "INSERT INTO PARTICIPANTS (EVENT_ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE) VALUES (?, ?, ?, ?, ?)";
+            try (PreparedStatement pstmt = connect.prepareStatement(sql)) {
+                pstmt.setInt(1, selectedEvent.getid());
+                pstmt.setString(2, firstName);
+                pstmt.setString(3, lastName);
+                pstmt.setString(4, email);
+                pstmt.setString(5, phone);
+
+                pstmt.executeUpdate();
+
+                showAlert("Success", "Registration Successful", "Participant registered successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            try {
+                if (connect != null) {
+                    connect.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void clearRegistrationForm() {
+        joinEvent_firstname.clear();
+        joinEvent_lastname.clear();
+        joinEvent_email.clear();
+        joinEvent_phone.clear();
+    }
+
+    private void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    private ObservableList<eventData> listCheckEvent;
+    public void showCheckEventList() {
+
+        // Fetch the latest data from the database
+        listCheckEvent = fetchCheckEventListFromDatabase();
+
+        checkEvent_col_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        checkEvent_col_name.setCellFactory(getWrapTextCellFactory());
+        checkEvent_col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        checkEvent_col_time.setCellValueFactory(new PropertyValueFactory<>("time"));
+
+        // Set the items to the checkEvent_tableview
+        checkEvent_tableview.setItems(listCheckEvent);
+    }
+
+    private ObservableList<eventData> fetchCheckEventListFromDatabase() {
+        ObservableList<eventData> checkEventList = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM EVENT_DET";
+        Connection connect = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connect = database.connectDB();
+            preparedStatement = connect.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+
+            eventData eventD;
+
+            while (resultSet.next()) {
+                int eventID = resultSet.getInt("EVENT_ID");
+                String eventName = resultSet.getString("EVENT_NAME");
+                String eventDate = resultSet.getString("EVENT_DATE");
+                String eventTime = resultSet.getString("EVENT_TIME");
+
+                eventD = new eventData(eventID, eventName, eventDate, eventTime, "", "");
+
+                checkEventList.add(eventD);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connect != null) connect.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return checkEventList;
+    }
+    @FXML
+    private void checkParticipants(ActionEvent event) {
+        eventData selectedEvent = checkEvent_tableview.getSelectionModel().getSelectedItem();
+
+        if (selectedEvent != null) {
+            // Fetch participants from the database for the selected event
+            ObservableList<participantData> participants = fetchParticipantsFromDatabase(selectedEvent);
+
+            // Display participants in the participants_tableview
+            setDisplayParticipant(participants);
+            listCheckEvent.clear();
+            showCheckEventList();
+
+        } else {
+            showAlert("Error", "Event not selected", "Please select an event before checking participants.");
+        }
+    }
+
+    public ObservableList<participantData> fetchParticipantsFromDatabase(eventData selectedEvent) {
+        ObservableList<participantData> participants = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM PARTICIPANTS WHERE EVENT_ID = ?";
+        Connection connect = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connect = database.connectDB();
+            preparedStatement = connect.prepareStatement(sql);
+            preparedStatement.setInt(1, selectedEvent.getid());
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String firstName = resultSet.getString("FIRST_NAME");
+                String lastName = resultSet.getString("LAST_NAME");
+                String email = resultSet.getString("EMAIL");
+                String phone = resultSet.getString("PHONE");
+
+                participantData participant = new participantData(firstName, lastName, email, phone);
+
+                participants.add(participant);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connect != null) connect.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return participants;
+    }
+
+    private void setDisplayParticipant(ObservableList<participantData> participants){
+
+        TableColumn<participantData, String> displayParticipant_col_no = new TableColumn<>("No.");
+        displayParticipant_col_no.setCellValueFactory(data -> new SimpleStringProperty(Integer.toString(participants.indexOf(data.getValue()) + 1)));
+        displayParticipant_col_fname.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        displayParticipant_col_lname.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        displayParticipant_col_email.setCellValueFactory(new PropertyValueFactory<>("email"));
+        displayParticipant_col_email.setCellFactory(getParticipantWrapTextCellFactory());
+        displayParticipant_col_phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+
+        // Set the columns to the participants_tableview
+        participants_tableview.getColumns().setAll(displayParticipant_col_no,displayParticipant_col_fname, displayParticipant_col_lname, displayParticipant_col_email, displayParticipant_col_phone);
+
+        // Set the items to the participants_tableview
+        participants_tableview.setItems(participants);
+    }
     public void initialize(){
         displayUsername();
         showAddEventList();
+        showJoinEventList();
+//        showCheckEventList();
         searchAddEvents();
     }
 }

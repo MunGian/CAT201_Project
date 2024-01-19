@@ -1,17 +1,17 @@
 .bg-form{
-    -fx-background-color:linear-gradient(to top right, #1e242e, #ae2d3c);
+    -fx-background-color:linear-gradient(to top right, #1d2028, #29419a);
 }
 
 .textfield{
     -fx-background-color: transparent;
     -fx-text-inner-color: #fff;
-    -fx-border-color: #d63333;
+    -fx-border-color: #144969;
     -fx-border-width: 0px 0px 4px 0px;
     -fx-text-size: 13px;
 }
 
 .textfield:focused{
-    -fx-border-color: #fb6363;
+    -fx-border-color: #061d2f;
     -fx-border-width: 0px 0px 1px 0px;
 }
 
@@ -29,13 +29,13 @@
 
 .hyperlink{
     -fx-underline: false;
-    -fx-text-fill: #fb6363;
+    -fx-text-fill: #32a1ee;
     -fx-border-color: transparent;
     -fx-border-width: 0px;
 }
 
 .hyperlink:hover{
-    -fx-text-fill: #ff7b7b;
+    -fx-text-fill: #4d7aea;
 }
 
 .signup-btn{
@@ -48,4 +48,12 @@
 
 .signup-btn:hover{
     -fx-background-color: linear-gradient(to bottom right, #4d9a76, #45b796);
+}
+
+.signup-btn {
+    -fx-background-color: linear-gradient(to bottom right, #218c74, #27ae60);
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-text-fill: #fff;
 }

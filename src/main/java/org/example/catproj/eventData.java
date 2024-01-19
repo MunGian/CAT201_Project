@@ -38,4 +38,5 @@ public class eventData {
     public String getImag() {
         return imag;
     }
+
 }
