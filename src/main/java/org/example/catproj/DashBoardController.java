@@ -32,6 +32,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DashBoardController {
 
@@ -76,10 +77,13 @@ public class DashBoardController {
 
     @FXML
     private TableView<eventData> checkEvent_tableview;
+
     @FXML
     private TableColumn<eventData, String> checkEvent_col_name;
+
     @FXML
     private TableColumn<eventData, String> checkEvent_col_time;
+
     @FXML
     private TableColumn<eventData, String> checkEvent_col_date;
 
@@ -163,6 +167,16 @@ public class DashBoardController {
 
     @FXML
     private Label username;
+
+    @FXML
+    private TextField updateFirstName;
+    @FXML
+    private TextField updateLastName;
+    @FXML
+    private TextField updateEmailAddress;
+    @FXML
+    private TextField updatePhoneNumber;
+
     public void searchAddEvents() {
         try {
             FilteredList<eventData> filteredData = new FilteredList<>(listAddEvent, b -> true);
@@ -461,34 +475,9 @@ public class DashBoardController {
         addEvent_tableview.setItems(listAddEvent);
     }
 
-
     private Callback<TableColumn<eventData, String>, TableCell<eventData, String>> getWrapTextCellFactory() {
         return col -> {
             TableCell<eventData, String> cell = new TableCell<>() {
-                private final Text text = new Text();
-
-                @Override
-                protected void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-
-                    if (item == null || empty) {
-                        setGraphic(null);
-                    } else {
-                        text.setText(item);
-                        text.wrappingWidthProperty().bind(col.widthProperty());
-                        setGraphic(text);
-                    }
-                }
-            };
-
-            cell.setStyle("-fx-alignment: CENTER-LEFT;");
-
-            return cell;
-        };
-    }
-    private Callback<TableColumn<participantData, String>, TableCell<participantData, String>> getParticipantWrapTextCellFactory() {
-        return col -> {
-            TableCell<participantData, String> cell = new TableCell<>() {
                 private final Text text = new Text();
 
                 @Override
@@ -662,16 +651,18 @@ public class DashBoardController {
 
     private ObservableList<eventData> listJoinEvent;
     public void showJoinEventList(){
-        listJoinEvent = addEventList();
+        if (joinEvent_tableview != null) {
+            listJoinEvent = addEventList();
 
-        joinEvent_col_name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        joinEvent_col_name.setCellFactory(getWrapTextCellFactory());
-        joinEvent_col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
-        joinEvent_col_time.setCellValueFactory(new PropertyValueFactory<>("time"));
-        joinEvent_col_desc.setCellValueFactory(new PropertyValueFactory<>("desc"));
-        joinEvent_col_desc.setCellFactory(getWrapTextCellFactory());
+            joinEvent_col_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+            joinEvent_col_name.setCellFactory(getWrapTextCellFactory());
+            joinEvent_col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+            joinEvent_col_time.setCellValueFactory(new PropertyValueFactory<>("time"));
+            joinEvent_col_desc.setCellValueFactory(new PropertyValueFactory<>("desc"));
+            joinEvent_col_desc.setCellFactory(getWrapTextCellFactory());
 
-        joinEvent_tableview.setItems(listJoinEvent);
+            joinEvent_tableview.setItems(listJoinEvent);
+        }
     }
 
     public void selectAvailableEvent() {
@@ -704,12 +695,8 @@ public class DashBoardController {
 
             image = new Image(imagePath, 120, 160, false, true);
             joinEvent_imageview.setImage(image);
-
             joinEvent_label.setText(getData.title);
 
-            joinEvent_name.setText("");
-            joinEvent_time.setText("");
-            joinEvent_date.setText("");
         }
     }
     @FXML
@@ -845,6 +832,9 @@ public class DashBoardController {
 
         if (selectedEvent != null) {
             // Fetch participants from the database for the selected event
+
+            tempData.setSelectedEvent(selectedEvent);
+
             ObservableList<participantData> participants = fetchParticipantsFromDatabase(selectedEvent);
 
             // Display participants in the participants_tableview
@@ -873,12 +863,13 @@ public class DashBoardController {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                int id = resultSet.getInt("PARTICIPANT_ID");
                 String firstName = resultSet.getString("FIRST_NAME");
                 String lastName = resultSet.getString("LAST_NAME");
                 String email = resultSet.getString("EMAIL");
                 String phone = resultSet.getString("PHONE");
 
-                participantData participant = new participantData(firstName, lastName, email, phone);
+                participantData participant = new participantData(id, firstName, lastName, email, phone);
 
                 participants.add(participant);
             }
@@ -913,11 +904,129 @@ public class DashBoardController {
         // Set the items to the participants_tableview
         participants_tableview.setItems(participants);
     }
+
+    public void selectParticipant(){
+        participantData selectedParticipant = participants_tableview.getSelectionModel().getSelectedItem();
+        int num = participants_tableview.getSelectionModel().getSelectedIndex();
+
+        if((num-1)< -1){
+            return;
+        }
+
+        updateFirstName.setText(selectedParticipant.getFirstName());
+        updateLastName.setText(selectedParticipant.getLastName());
+        updateEmailAddress.setText(selectedParticipant.getEmail());
+        updatePhoneNumber.setText(selectedParticipant.getPhone());
+    }
+    @FXML
+    private void deleteParticipant(ActionEvent event) {
+        participantData selectedParticipant = participants_tableview.getSelectionModel().getSelectedItem();
+        eventData selectedEvent = tempData.getSelectedEvent();
+
+        if (selectedParticipant != null && selectedEvent != null) {
+            // Show a confirmation dialog
+            Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationDialog.setTitle("Delete Participant");
+            confirmationDialog.setHeaderText(null);
+            confirmationDialog.setContentText("Are you sure you want to delete this participant?");
+
+            Optional<ButtonType> result = confirmationDialog.showAndWait();
+
+            // Process the result
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // User clicked OK, proceed with deletion
+                deleteParticipantFromDatabase(selectedParticipant);
+
+                // After deletion, update the participants_tableview
+                ObservableList<participantData> updatedParticipants = fetchParticipantsFromDatabase(selectedEvent);
+                setDisplayParticipant(updatedParticipants);
+                listCheckEvent.clear();
+                showCheckEventList();
+            }
+        } else {
+            showAlert("Error", "Participant or Event not selected", "Please select a participant and an event before deleting.");
+        }
+    }
+
+    private void deleteParticipantFromDatabase(participantData selectedParticipant) {
+        Connection connection = null;
+
+        try {
+            connection = database.connectDB();
+
+            String sql = "DELETE FROM PARTICIPANTS WHERE PARTICIPANT_ID = ?";
+            try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                pstmt.setInt(1, selectedParticipant.getId());
+
+                int affectedRows = pstmt.executeUpdate();
+
+                if (affectedRows > 0) {
+                    showAlert("Success", "Deletion Successful", "Participant deleted successfully!");
+
+                    showCheckEventList();
+                } else {
+                    showAlert("Error", "Deletion Failed", "No participant found with the specified ID.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Error", "Database Error", "Failed to delete participant from the database.");
+        } finally {
+            // Close the database connection
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void refreshParticipantsTable() {
+        // Fetch the selected event
+        eventData selectedEvent = checkEvent_tableview.getSelectionModel().getSelectedItem();
+
+        if (selectedEvent != null) {
+            // Fetch participants from the database for the selected event
+            ObservableList<participantData> participants = fetchParticipantsFromDatabase(selectedEvent);
+
+            // Display participants in the participants_tableview
+            setDisplayParticipant(participants);
+//            listCheckEvent.clear();
+            showCheckEventList();
+        }
+    }
+
+    private Callback<TableColumn<participantData, String>, TableCell<participantData, String>> getParticipantWrapTextCellFactory() {
+        return col -> {
+            TableCell<participantData, String> cell = new TableCell<>() {
+                private final Text text = new Text();
+
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item == null || empty) {
+                        setGraphic(null);
+                    } else {
+                        text.setText(item);
+                        text.wrappingWidthProperty().bind(col.widthProperty());
+                        setGraphic(text);
+                    }
+                }
+            };
+
+            cell.setStyle("-fx-alignment: CENTER-LEFT;");
+
+            return cell;
+        };
+    }
+
     public void initialize(){
         displayUsername();
         showAddEventList();
         showJoinEventList();
-//        showCheckEventList();
         searchAddEvents();
     }
 }

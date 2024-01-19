@@ -7,12 +7,17 @@ public class participantData {
     private String email;
     private String phone;
 
-    public participantData(String firstName, String lastName, String email, String phone) {
+    private int id;
+
+    public participantData(int id, String firstName, String lastName, String email, String phone) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
     }
+
+    public int getId() { return id;}
 
     public String getFirstName() {
         return firstName;
@@ -29,6 +34,8 @@ public class participantData {
     public String getPhone() {
         return phone;
     }
+
+    public void setId(int id) { this.id = id;}
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
