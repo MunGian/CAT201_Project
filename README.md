@@ -30,7 +30,10 @@
 └── README.md
 ```
 ## Showcase
+### Login and Sign Up Pages
 ![image](https://github.com/MunGian/CAT201_Project/assets/121543760/5560c45b-bf72-4408-bed4-232c420fd3f2)
+![image](https://github.com/MunGian/CAT201_Project/assets/121543760/9b3be5bc-1745-4e4b-8ec5-ba6b57dd9fc1)
+
 
 ### Admin POV
 ![image](https://github.com/MunGian/CAT201_Project/assets/121543760/82a267db-d23a-429a-87d0-b65aabe623b4)
