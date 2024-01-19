@@ -28,19 +28,14 @@
                         <Image url="@../../../assets/icon.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="dashboard_btn" layoutX="495.0" layoutY="11.0" mnemonicParsing="false" onAction="#switchadminForm" prefHeight="40.0" prefWidth="71.0" styleClass="nav-btn" stylesheets="@../../../css/designDashboard.css" text=" Home">
+                  <Button fx:id="dashboard_btn" layoutX="495.0" layoutY="11.0" mnemonicParsing="false" onAction="#switchUserForm" prefHeight="40.0" prefWidth="65.0" styleClass="nav-btn" stylesheets="@../../../css/designDashboard.css" text=" Home">
                      <font>
                         <Font size="21.0" />
                      </font>
                   </Button>
-                  <Button fx:id="addEvent_btn" layoutX="588.0" layoutY="11.0" mnemonicParsing="false" onAction="#switchadminForm" prefHeight="40.0" prefWidth="90.0" styleClass="nav-btn" stylesheets="@../../../css/designDashboard.css" text=" Add Event">
+                  <Button fx:id="joinEvent_btn" layoutX="685.0" layoutY="11.0" mnemonicParsing="false" onAction="#switchUserForm" prefHeight="40.0" prefWidth="94.0" styleClass="nav-btn" stylesheets="@../../../css/designDashboard.css" text=" Join Event">
                      <font>
                         <Font size="15.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="participants_btn" layoutX="700.0" layoutY="11.0" mnemonicParsing="false" onAction="#switchadminForm" prefHeight="40.0" prefWidth="97.0" styleClass="nav-btn" stylesheets="@../../../css/designDashboard.css" text=" Participants">
-                     <font>
-                        <Font size="2.0" />
                      </font>
                   </Button>
                   <Button fx:id="signout" alignment="CENTER" layoutX="837.0" layoutY="9.0" mnemonicParsing="false" onAction="#logOut" prefHeight="45.0" prefWidth="45.0" styleClass="sign_out" stylesheets="@../../../css/designDashboard.css">
@@ -48,11 +43,16 @@
                         <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" size="2.5em" text="" textAlignment="CENTER" />
                      </graphic>
                   </Button>
+                  <Button fx:id="addEvent_btn" layoutX="598.0" layoutY="11.0" mnemonicParsing="false" onAction="#switchUserForm" prefHeight="40.0" prefWidth="62.0" styleClass="nav-btn" stylesheets="@../../../css/designDashboard.css" text=" Event">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
          </top>
          <center>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="981.0" BorderPane.alignment="CENTER">
                <children>
                   <AnchorPane fx:id="dashboard_form" layoutX="146.0" layoutY="150.0" prefHeight="500.0" prefWidth="780.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -119,127 +119,6 @@
                         </Label>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="addEvent_form" prefHeight="500.0" prefWidth="780.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="402.0" prefWidth="261.0" styleClass="bg-white" stylesheets="@../../../css/designDashboard.css">
-                           <children>
-                              <AnchorPane layoutX="73.14285714285714" layoutY="14.0" prefHeight="160.0" prefWidth="120.0" styleClass="bg-white" stylesheets="@../../../css/designDashboard.css" AnchorPane.bottomAnchor="302.0" AnchorPane.leftAnchor="73.0" AnchorPane.rightAnchor="68.0" AnchorPane.topAnchor="14.0">
-                                 <children>
-                                    <ImageView fx:id="addEvent_imageview" fitHeight="160.0" fitWidth="120.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
-                              </AnchorPane>
-                              <Button fx:id="addEvent_import" layoutX="98.0" layoutY="186.0" mnemonicParsing="false" onAction="#importImage" styleClass="insert_btn" stylesheets="@../../../css/designDashboard.css" text="Import" />
-                              <Label alignment="CENTER_RIGHT" layoutX="5.0" layoutY="228.0" prefHeight="20.0" prefWidth="70.0" text="Event Name:" />
-                              <Label alignment="CENTER_RIGHT" layoutX="5.0" layoutY="258.0" prefHeight="20.0" prefWidth="70.0" text="Date:" />
-                              <Label alignment="CENTER_RIGHT" layoutX="5.0" layoutY="288.0" prefHeight="20.0" prefWidth="70.0" text="Time:" />
-                              <Label alignment="CENTER_RIGHT" layoutX="5.0" layoutY="318.0" prefHeight="20.0" prefWidth="70.0" text="Description:" />
-                              <TextField fx:id="addEvent_name" layoutX="82.0" layoutY="225.0" prefHeight="26.0" prefWidth="155.0" styleClass="add-textfield" stylesheets="@../../../css/designDashboard.css" />
-                              <TextField fx:id="addEvent_date" layoutX="82.0" layoutY="254.0" prefHeight="26.0" prefWidth="155.0" styleClass="add-textfield" stylesheets="@../../../css/designDashboard.css" />
-                              <TextField fx:id="addEvent_time" layoutX="82.0" layoutY="284.0" prefHeight="26.0" prefWidth="155.0" styleClass="add-textfield" stylesheets="@../../../css/designDashboard.css" />
-                              <TextField fx:id="addEvent_desc" layoutX="82.0" layoutY="314.0" prefHeight="26.0" prefWidth="155.0" styleClass="add-textfield" stylesheets="@../../../css/designDashboard.css" />
-                              <Button fx:id="addEvent_insert" layoutX="6.0" layoutY="360.0" mnemonicParsing="false" onAction="#insertAddEvents" prefHeight="45.0" prefWidth="75.0" styleClass="insert_btn" stylesheets="@../../../css/designDashboard.css" text="Insert" />
-                              <Button fx:id="addEvent_update" layoutX="88.0" layoutY="360.0" mnemonicParsing="false" onAction="#updateAddEvents" prefHeight="45.0" prefWidth="75.0" styleClass="update_btn" stylesheets="@../../../css/designDashboard.css" text="Update" />
-                              <Button fx:id="addEvent_delete" layoutX="170.0" layoutY="360.0" mnemonicParsing="false" onAction="#deleteAddEvents" prefHeight="45.0" prefWidth="75.0" styleClass="delete_btn" stylesheets="@../../../css/designDashboard.css" text="Delete" />
-                              <Button fx:id="addEvent_clear" layoutX="170.0" layoutY="412.0" mnemonicParsing="false" onAction="#clearAddEventList" prefHeight="45.0" prefWidth="75.0" styleClass="clear_btn" stylesheets="@../../../css/designDashboard.css" text="Clear" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane layoutX="286.0" layoutY="15.0" prefHeight="478.0" prefWidth="666.0" styleClass="bg-white" stylesheets="@../../../css/designDashboard.css">
-                           <children>
-                              <TableView fx:id="addEvent_tableview" layoutX="20.0" layoutY="60.0" onMouseClicked="#selectAddEventList" prefHeight="400.0" prefWidth="645.0" stylesheets="@../../../css/designDashboard.css">
-                                <columns>
-                                  <TableColumn fx:id="addEvent_col_name" prefWidth="129.90469360351562" text="Event Name" />
-                                  <TableColumn fx:id="addEvent_col_date" prefWidth="141.142822265625" text="Date" />
-                                    <TableColumn fx:id="addEvent_col_time" prefWidth="135.428466796875" text="Time" />
-                                    <TableColumn fx:id="addEvent_col_desc" prefWidth="232.0001220703125" text="Description" />
-                                </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </TableView>
-                              <TextField fx:id="addEvent_search" layoutX="20.0" layoutY="15.0" prefHeight="30.0" prefWidth="200.0" promptText="Search" styleClass="search" stylesheets="@../../../css/designDashboard.css" />
-                              <FontAwesomeIcon glyphName="SEARCH" layoutX="28.0" layoutY="36.0" size="1.5em" />
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane fx:id="joinEvent_form" layoutX="190.0" layoutY="88.0" prefHeight="500.0" prefWidth="780.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <AnchorPane layoutX="15.0" layoutY="14.0" prefHeight="210.0" prefWidth="750.0" styleClass="bg-white" stylesheets="@../../../css/designDashboard.css">
-                           <children>
-                              <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="150.0" prefWidth="250.0" styleClass="event-card" stylesheets="@../../../css/designDashboard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="0.0">
-                                 <children>
-                                    <Label alignment="CENTER_RIGHT" layoutX="13.0" layoutY="34.0" prefHeight="18.0" prefWidth="70.0" text="Event Name:" />
-                                    <Label alignment="CENTER_RIGHT" layoutX="13.0" layoutY="75.0" prefWidth="70.0" text="Date:" />
-                                    <Label alignment="CENTER_RIGHT" layoutX="13.0" layoutY="115.0" prefWidth="70.0" text="Time:" />
-                                    <TextField fx:id="joinEvent_name" layoutX="86.0" layoutY="28.0" prefHeight="31.0" prefWidth="150.0" promptText="Name" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
-                                    <TextField fx:id="joinEvent_date" layoutX="86.0" layoutY="68.0" prefHeight="31.0" prefWidth="150.0" promptText="Date" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
-                                    <TextField fx:id="joinEvent_time" layoutX="86.0" layoutY="108.0" prefHeight="31.0" prefWidth="150.0" promptText="Time" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
-                                    <Button fx:id="joinEvent_select" layoutX="83.0" layoutY="153.0" mnemonicParsing="false" styleClass="insert_btn" stylesheets="@../../../css/designDashboard.css" text="Select Event" />
-                                 </children>
-                              </AnchorPane>
-                              <TableView fx:id="joinEvent_tableview" layoutX="250.0" prefHeight="210.0" prefWidth="675.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="-175.0" AnchorPane.topAnchor="0.0">
-                                <columns>
-                                  <TableColumn fx:id="joinEvent_col_name" prefWidth="151.04760098457336" text="Event Name" />
-                                  <TableColumn fx:id="joinEvent_col_date" prefWidth="130.6667022705078" text="Date" />
-                                    <TableColumn fx:id="joinEvent_col_time" prefWidth="144.1904296875" text="Time" />
-                                    <TableColumn fx:id="joinEvent_col_desc" prefWidth="238.4761962890625" text="Description" />
-                                </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane layoutX="15.0" layoutY="242.0" prefHeight="240.0" prefWidth="923.0" styleClass="bg-white" stylesheets="@../../../css/designDashboard.css">
-                           <children>
-                              <AnchorPane layoutX="-1.7142857142857142" layoutY="-1.0" prefHeight="240.0" prefWidth="415.0" styleClass="event-card" stylesheets="@../../../css/designDashboard.css" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="510.0" AnchorPane.topAnchor="-1.0">
-                                 <children>
-                                    <AnchorPane layoutX="43.0" layoutY="30.0" prefHeight="160.0" prefWidth="120.0" styleClass="bg-white" stylesheets="@../../../css/designDashboard.css">
-                                       <children>
-                                          <ImageView fx:id="joinEvent_imageview" fitHeight="160.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" />
-                                       </children>
-                                    </AnchorPane>
-                                    <Label fx:id="joinEvent_label" layoutX="203.0" layoutY="94.0" text="LABEL">
-                                       <font>
-                                          <Font name="System Bold" size="22.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="joinEvent_text" layoutX="225.0" layoutY="144.0" text="text" />
-                                 </children></AnchorPane>
-                              <Label layoutX="540.0" layoutY="7.0" text="Register Event">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER_RIGHT" layoutX="422.0" layoutY="66.0" prefHeight="22.0" prefWidth="122.0" text="First Name:">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="joinEvent_firstname" layoutX="552.0" layoutY="61.0" prefHeight="31.0" prefWidth="200.0" promptText="First Name" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
-                              <Label alignment="CENTER_RIGHT" layoutX="422.0" layoutY="106.0" prefHeight="22.0" prefWidth="122.0" text="Last Name:">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="joinEvent_lastname" layoutX="552.0" layoutY="101.0" prefHeight="31.0" prefWidth="200.0" promptText="Last Name" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
-                              <Label alignment="CENTER_RIGHT" layoutX="422.0" layoutY="146.0" prefHeight="22.0" prefWidth="122.0" text="Email Address:">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="joinEvent_email" layoutX="552.0" layoutY="141.0" prefHeight="31.0" prefWidth="200.0" promptText="Email Address" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
-                              <Label alignment="CENTER_RIGHT" layoutX="422.0" layoutY="186.0" prefHeight="22.0" prefWidth="122.0" text="Phone Number:">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="joinEvent_phone" layoutX="552.0" layoutY="181.0" prefHeight="31.0" prefWidth="200.0" promptText="Phone Number" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
-                              <Button fx:id="joinEvent_register" layoutX="765.0" layoutY="182.0" mnemonicParsing="false" styleClass="update_btn" stylesheets="@../../../css/designDashboard.css" text="Register" />
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </AnchorPane>
                   <AnchorPane fx:id="participants_form" layoutX="94.0" layoutY="29.0" prefHeight="500.0" prefWidth="780.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <AnchorPane layoutX="323.0" layoutY="12.0" prefHeight="475.0" prefWidth="627.0" styleClass="bg-white" stylesheets="@../../../css/designDashboard.css">
@@ -272,6 +151,128 @@
                                  </columnResizePolicy>
                               </TableView>
                            </children></AnchorPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="joinEvent_form" layoutX="26.0" layoutY="32.0" prefHeight="566.0" prefWidth="954.0" visible="false">
+                     <children>
+                        <AnchorPane layoutX="17.0" layoutY="-4.0" prefHeight="237.0" prefWidth="911.0" styleClass="bg-white" stylesheets="@../../../css/designDashboard.css">
+                           <children>
+                              <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="150.0" prefWidth="250.0" styleClass="event-card" stylesheets="@../../../css/designDashboard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" layoutX="13.0" layoutY="34.0" prefHeight="18.0" prefWidth="70.0" text="Event Name:" />
+                                    <Label alignment="CENTER_RIGHT" layoutX="13.0" layoutY="75.0" prefWidth="70.0" text="Date:" />
+                                    <Label alignment="CENTER_RIGHT" layoutX="13.0" layoutY="115.0" prefWidth="70.0" text="Time:" />
+                                    <TextField fx:id="joinEvent_name" layoutX="86.0" layoutY="28.0" prefHeight="31.0" prefWidth="150.0" promptText="Name" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
+                                    <TextField fx:id="joinEvent_date" layoutX="86.0" layoutY="68.0" prefHeight="31.0" prefWidth="150.0" promptText="Date" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
+                                    <TextField fx:id="joinEvent_time" layoutX="86.0" layoutY="108.0" prefHeight="31.0" prefWidth="150.0" promptText="Time" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
+                                    <Button fx:id="joinEvent_select" layoutX="84.0" layoutY="160.0" mnemonicParsing="false" onAction="#selectEvent" styleClass="insert_btn" stylesheets="@../../../css/designDashboard.css" text="Select Event" />
+                                 </children>
+                              </AnchorPane>
+                              <TableView fx:id="joinEvent_tableview" layoutX="261.14285714285717" onMouseClicked="#selectAvailableEvent" prefHeight="237.0" prefWidth="637.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="261.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
+                                 <columns>
+                                    <TableColumn fx:id="joinEvent_col_name" prefWidth="100.0" text="Event Name" />
+                                    <TableColumn fx:id="joinEvent_col_date" prefWidth="75.0" text="Date" />
+                                    <TableColumn fx:id="joinEvent_col_time" prefWidth="75.0" text="Time" />
+                                    <TableColumn fx:id="joinEvent_col_desc" prefWidth="249.59995727539064" text="Description" />
+                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="17.0" layoutY="241.0" prefHeight="245.0" prefWidth="911.0" styleClass="bg-white" stylesheets="@../../../css/designDashboard.css">
+                           <children>
+                              <AnchorPane layoutX="55.0" layoutY="53.0" prefHeight="240.0" prefWidth="385.0" styleClass="event-card" stylesheets="@../../../css/designDashboard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="526.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane layoutX="69.0" layoutY="33.0" prefHeight="160.0" prefWidth="120.0" styleClass="bg-white" stylesheets="@../../../css/designDashboard.css">
+                                       <children>
+                                          <ImageView fx:id="joinEvent_imageview" fitHeight="160.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" />
+                                       </children>
+                                    </AnchorPane>
+                                    <Label fx:id="joinEvent_label" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="91.0" prefHeight="125.0" prefWidth="174.0" text="LABEL" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="g" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="208.0" layoutY="66.0" prefHeight="20.0" prefWidth="174.0" text="Event Name :" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <Label layoutX="556.0" layoutY="6.0" text="Register Event">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" layoutX="438.0" layoutY="65.0" prefHeight="22.0" prefWidth="122.0" text="First Name:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="joinEvent_firstname" layoutX="568.0" layoutY="60.0" prefHeight="31.0" prefWidth="200.0" promptText="First Name" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
+                              <Label alignment="CENTER_RIGHT" layoutX="438.0" layoutY="105.0" prefHeight="22.0" prefWidth="122.0" text="Last Name:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="joinEvent_lastname" layoutX="568.0" layoutY="100.0" prefHeight="31.0" prefWidth="200.0" promptText="Last Name" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
+                              <Label alignment="CENTER_RIGHT" layoutX="438.0" layoutY="145.0" prefHeight="22.0" prefWidth="122.0" text="Email Address:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="joinEvent_email" layoutX="568.0" layoutY="140.0" prefHeight="31.0" prefWidth="200.0" promptText="Email Address" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
+                              <Label alignment="CENTER_RIGHT" layoutX="438.0" layoutY="185.0" prefHeight="22.0" prefWidth="122.0" text="Phone Number:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="joinEvent_phone" layoutX="568.0" layoutY="180.0" prefHeight="31.0" prefWidth="200.0" promptText="Phone Number" styleClass="label-info" stylesheets="@../../../css/designDashboard.css" />
+                              <Button fx:id="joinEvent_register" layoutX="781.0" layoutY="181.0" mnemonicParsing="false" onAction="#registerParticipant" styleClass="update_btn" stylesheets="@../../../css/designDashboard.css" text="Register" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="addEvent_form" prefHeight="526.0" prefWidth="976.0" visible="false">
+                     <children>
+                        <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="493.0" prefWidth="252.0" styleClass="bg-white" stylesheets="@../../../css/designDashboard.css">
+                           <children>
+                              <AnchorPane layoutX="67.0" layoutY="72.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="120.0" styleClass="bg-white" stylesheets="@../../../css/designDashboard.css" AnchorPane.bottomAnchor="262.2857142857143" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="72.0">
+                                 <children>
+                                    <ImageView fx:id="addEvent_imageview" fitHeight="160.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </AnchorPane>
+                              <Label alignment="CENTER_RIGHT" layoutX="5.0" layoutY="265.0" prefHeight="20.0" prefWidth="70.0" text="Event Name:" />
+                              <Label alignment="CENTER_RIGHT" layoutX="5.0" layoutY="295.0" prefHeight="20.0" prefWidth="70.0" text="Date:" />
+                              <Label alignment="CENTER_RIGHT" layoutX="5.0" layoutY="325.0" prefHeight="20.0" prefWidth="70.0" text="Time:" />
+                              <Label alignment="CENTER_RIGHT" layoutX="5.0" layoutY="355.0" prefHeight="20.0" prefWidth="70.0" text="Description:" />
+                              <TextField fx:id="addEvent_name" layoutX="82.0" layoutY="262.0" prefHeight="26.0" prefWidth="155.0" styleClass="add-textfield" stylesheets="@../../../css/designDashboard.css" />
+                              <TextField fx:id="addEvent_date" layoutX="82.0" layoutY="291.0" prefHeight="26.0" prefWidth="155.0" styleClass="add-textfield" stylesheets="@../../../css/designDashboard.css" />
+                              <TextField fx:id="addEvent_time" layoutX="82.0" layoutY="321.0" prefHeight="26.0" prefWidth="155.0" styleClass="add-textfield" stylesheets="@../../../css/designDashboard.css" />
+                              <TextField fx:id="addEvent_desc" layoutX="82.0" layoutY="351.0" prefHeight="26.0" prefWidth="155.0" styleClass="add-textfield" stylesheets="@../../../css/designDashboard.css" />
+                              <Button fx:id="addEvent_clear" layoutX="165.0" layoutY="406.0" mnemonicParsing="false" onAction="#clearAddEventList" prefHeight="45.0" prefWidth="75.0" styleClass="clear_btn" stylesheets="@../../../css/designDashboard.css" text="Clear" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="275.0" layoutY="15.0" prefHeight="493.0" prefWidth="693.0" styleClass="bg-white" stylesheets="@../../../css/designDashboard.css">
+                           <children>
+                              <TableView fx:id="addEvent_tableview" layoutX="20.0" layoutY="60.0" onMouseClicked="#selectAddEventList" prefHeight="426.0" prefWidth="673.0" stylesheets="@../../../css/designDashboard.css">
+                                 <columns>
+                                    <TableColumn fx:id="addEvent_col_name" prefWidth="100.0" text="Event Name" />
+                                    <TableColumn fx:id="addEvent_col_date" prefWidth="100.0" text="Date" />
+                                    <TableColumn fx:id="addEvent_col_time" prefWidth="100.0" text="Time" />
+                                    <TableColumn fx:id="addEvent_col_desc" prefWidth="150.0" text="Description" />
+                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                              <TextField fx:id="addEvent_search" layoutX="20.0" layoutY="15.0" prefHeight="30.0" prefWidth="200.0" promptText="Search" styleClass="search" stylesheets="@../../../css/designDashboard.css" />
+                              <FontAwesomeIcon glyphName="SEARCH" layoutX="28.0" layoutY="36.0" size="1.5em" />
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
                </children>

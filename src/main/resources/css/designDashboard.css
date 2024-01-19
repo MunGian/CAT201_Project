@@ -8,6 +8,10 @@
     -fx-background-color: linear-gradient(to top right, #1d2028, #1b2b77);
 }
 
+.top-form{
+    -fx-background-color: linear-gradient(to top right, #034372 0%, #0a9aaf 100%);
+}
+
 .nav-btn{
     -fx-background-color: transparent;
     -fx-cursor:hand;
